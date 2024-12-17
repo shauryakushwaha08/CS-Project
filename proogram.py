@@ -1,4 +1,39 @@
+import random as r
+
+a = """
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░      ░░░░      ░░░░      ░░░       ░░░        ░░░      ░░░   ░░░  ░
+▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒  ▒▒    ▒▒  ▒
+▓  ▓▓▓▓  ▓▓  ▓▓▓▓▓▓▓▓  ▓▓▓▓  ▓▓  ▓▓▓▓  ▓▓▓▓▓  ▓▓▓▓▓  ▓▓▓▓  ▓▓  ▓  ▓  ▓
+█        ██  ████  ██        ██  ████  █████  █████  ████  ██  ██    █
+█  ████  ███      ███  ████  ██       ███        ███      ███  ███   █
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+"""
+banner = """
+ █████╗  ██████╗ █████╗ ██████╗ ██╗ ██████╗ ███╗   ██╗
+██╔══██╗██╔════╝██╔══██╗██╔══██╗██║██╔═══██╗████╗  ██║
+███████║██║     ███████║██║  ██║██║██║   ██║██╔██╗ ██║
+██╔══██║██║     ██╔══██║██║  ██║██║██║   ██║██║╚██╗██║
+██║  ██║╚██████╗██║  ██║██████╔╝██║╚██████╔╝██║ ╚████║
+╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═════╝ ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+"""
+print(banner)
+print("╔══════════════════════════════════════════════╗")
+print("║            Welcome to Acadion ERP            ║")
+print("╚══════════════════════════════════════════════╝")
+
+
 def display_menu():
+    print("╔══════════════════════════════════════════════╗")
+    print("║ [1] Add a Student                            ║")
+    print("║ [2] Delete a Student                         ║")
+    print("║ [3] Modify a Student Details                 ║")
+    print("║ [4] Search a Student                         ║")
+    print("║ [5] Sort the Students                        ║")
+    print("║ [6] Display the Records                      ║")
+    print("║ [0] Exit                                     ║")
+    print("╚══════════════════════════════════════════════╝")
+    '''print("--Welcome to Acadion--")
     print("\nMenu:")
     print("1. Add a Student")
     print("2. Delete a Student")
@@ -6,77 +41,97 @@ def display_menu():
     print("4. Search a Student")
     print("5. Sort the Students")
     print("6. Display the Records")
-    print("0. Exit")
+    print("0. Exit")'''
 
 
-def addStudent(lst):
-    name = input("Enter the name of contact: ")
-    num = int(input("Enter the number of contact: "))
-    lst.append([name, num])
-    print(f"Student {name} has been added to the directory.")
+def addmission_num():
+    return r.randint(100000, 999999)
 
 
-def removeStudent(lst):
+def addStudent(record):
+    print("Add records of student")
+    name = input("Enter name : ")
+    std = input("Enter class : ")
+    add_num = addmission_num()
+    record[add_num] = {
+        "Addmission Number": add_num,
+        "Name": name,
+        "Class": std
+    }
+    print(f"Student {name} has been added to the records.\n")
+
+
+def removeStudent(record):
     element = input("Enter the element to delete: ")
-    if element in lst:
-        lst.remove(element)
+    if element in record:
+        record.remove(element)
         print(f"{element} has been deleted from the list.")
     else:
         print(f"{element} is not in the list.")
 
 
-def searchStudent(lst):
+def searchStudent(record):
     element = input("Enter the element to delete: ")
-    if element in lst:
-        lst.remove(element)
+    if element in record:
+        record.remove(element)
         print(f"{element} has been deleted from the list.")
     else:
         print(f"{element} is not in the list.")
 
 
-def modifyStudent(lst):
+def modifyStudent(record):
     position = int(
         input(
             "Enter the position of the element to modify (starting from 0): "))
-    if 0 <= position < len(lst):
+    if 0 <= position < len(record):
         new_element = input("Enter the new element: ")
-        lst[position] = new_element
+        record[position] = new_element
         print(
             f"Element at position {position} has been modified to {new_element}."
         )
     else:
         print(
-            f"Invalid position. Please enter a position between 0 and {len(lst)-1}."
+            f"Invalid position. Please enter a position between 0 and {len(record)-1}."
         )
 
 
-def sortStudent(lst):
-    lst.sort()
+def sortStudent(record):
+    record.sort()
     print("The list has been sorted.")
 
 
-def showStudent(lst):
-    print("The current list is:")
-    for i, element in enumerate(lst):
-        print(f"{i}: {element}")
+def showStudent(record):
+    print("Student Records:")
+    for i in record.keys():
+        print("╔══════════════════════════════════════════════╗")
+        print("║ Addmission Number ||   Name   ||    Class    ║")
+        print("╚══════════════════════════════════════════════╝")
+        for key in record:
+            print(
+                f"║ {record[key]['Addmission Number']}{(17 - len(record[key]['Addmission Number'])) *' '}|| {record[key]['Name']}{(17 - len(record[key]['Name'])) *' '}"
+            )
+            print(f"║ {record[key]['Name']}")
+            print(f"║ {record[key]['Class']}")
+            print("╚══════════════════════════════════════════════╝")
 
 
-lst = []
+record = dict()
 while True:
     display_menu()
     choice = input("Enter your choice: ")
+    print("\n")
     if choice == '1':
-        addStudent(lst)
+        addStudent(record)
     elif choice == '2':
-        removeStudent(lst)
+        removeStudent(record)
     elif choice == '3':
-        modifyStudent(lst)
+        modifyStudent(record)
     elif choice == '4':
-        searchStudent(lst)
+        searchStudent(record)
     elif choice == '5':
-        sortStudent(lst)
+        sortStudent(record)
     elif choice == '6':
-        showStudent(lst)
+        showStudent(record)
     elif choice == '0':
         print("Exiting the program.")
         break
