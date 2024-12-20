@@ -1,14 +1,5 @@
 import random as r
 
-a = """
-░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-░░      ░░░░      ░░░░      ░░░       ░░░        ░░░      ░░░   ░░░  ░
-▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒  ▒▒    ▒▒  ▒
-▓  ▓▓▓▓  ▓▓  ▓▓▓▓▓▓▓▓  ▓▓▓▓  ▓▓  ▓▓▓▓  ▓▓▓▓▓  ▓▓▓▓▓  ▓▓▓▓  ▓▓  ▓  ▓  ▓
-█        ██  ████  ██        ██  ████  █████  █████  ████  ██  ██    █
-█  ████  ███      ███  ████  ██       ███        ███      ███  ███   █
-░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-"""
 banner = """
  █████╗  ██████╗ █████╗ ██████╗ ██╗ ██████╗ ███╗   ██╗
 ██╔══██╗██╔════╝██╔══██╗██╔══██╗██║██╔═══██╗████╗  ██║
@@ -33,15 +24,6 @@ def display_menu():
     print("║ [6] Display the Records                      ║")
     print("║ [0] Exit                                     ║")
     print("╚══════════════════════════════════════════════╝")
-    '''print("--Welcome to Acadion--")
-    print("\nMenu:")
-    print("1. Add a Student")
-    print("2. Delete a Student")
-    print("3. Modify a Student Details")
-    print("4. Search a Student")
-    print("5. Sort the Students")
-    print("6. Display the Records")
-    print("0. Exit")'''
 
 
 def addmission_num():
@@ -62,21 +44,21 @@ def addStudent(record):
 
 
 def removeStudent(record):
-    element = input("Enter the element to delete: ")
-    if element in record:
-        record.remove(element)
-        print(f"{element} has been deleted from the list.")
-    else:
-        print(f"{element} is not in the list.")
+    element = input("Enter the name of student to delete: ")
+    for i in list(record.keys()):   
+        if element in record[i]["Name"]:
+            del record[i]
+            print(f"{element} has been deleted from the list.")
+            break
+        else:
+            print(f"{element} is not in the list.")
 
 
 def searchStudent(record):
-    element = input("Enter the element to delete: ")
-    if element in record:
-        record.remove(element)
-        print(f"{element} has been deleted from the list.")
-    else:
-        print(f"{element} is not in the list.")
+    element = input("Enter the name of student to search: ")
+    for i in list(record.keys()):
+        if element in record[i]["Name"]:
+            print(record[i])
 
 
 def modifyStudent(record):
@@ -95,24 +77,22 @@ def modifyStudent(record):
         )
 
 
-def sortStudent(record):
-    record.sort()
+def sortStudent():
+    global record
+    l = list(record.keys())
+    l.sort()
+    record = {i: record[i] for i in l}
     print("The list has been sorted.")
 
 
 def showStudent(record):
     print("Student Records:")
+    print("╔══════════════════════════════════════════════╗")
+    print("║ Addmission Number ||     Name     ||  Class  ║")
+    print("╚══════════════════════════════════════════════╝")
     for i in record.keys():
-        print("╔══════════════════════════════════════════════╗")
-        print("║ Addmission Number ||   Name   ||    Class    ║")
+        print(f"║ {record[i]['Addmission Number']}{(17 - len(str(record[i]['Addmission Number']))) *' '} || {record[i]['Name']}{(13 - len(record[i]['Name'])) *' '}|| {record[i]['Class']}{(8- len(record[i]['Class'])) *' '}║")
         print("╚══════════════════════════════════════════════╝")
-        for key in record:
-            print(
-                f"║ {record[key]['Addmission Number']}{(17 - len(record[key]['Addmission Number'])) *' '}|| {record[key]['Name']}{(17 - len(record[key]['Name'])) *' '}"
-            )
-            print(f"║ {record[key]['Name']}")
-            print(f"║ {record[key]['Class']}")
-            print("╚══════════════════════════════════════════════╝")
 
 
 record = dict()
@@ -129,7 +109,7 @@ while True:
     elif choice == '4':
         searchStudent(record)
     elif choice == '5':
-        sortStudent(record)
+        sortStudent()
     elif choice == '6':
         showStudent(record)
     elif choice == '0':
