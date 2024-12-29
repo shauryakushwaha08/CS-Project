@@ -1,6 +1,6 @@
-Synopsis for Acadion ERP
+# Synopsis for Acadion ERP
 
-Title: Acadion ERP - A Python-based Student Management System
+## Title: Acadion ERP - A Python-based Student Management System
 
 Overview: Acadion ERP is a lightweight, Python-based Enterprise Resource Planning system designed specifically for managing student records. Its intuitive menu-driven interface allows educational institutions to maintain student data efficiently. The program integrates several core functionalities to streamline tasks such as adding, deleting, modifying, and sorting student information.
 
