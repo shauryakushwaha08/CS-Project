@@ -2,7 +2,7 @@ import random as r
 import csv
 import os
 
-print("------Student Record Management System------")
+print("----------Student Record Management System----------")
 banner = """
  █████╗  ██████╗ █████╗ ██████╗ ██╗ ██████╗ ███╗   ██╗
 ██╔══██╗██╔════╝██╔══██╗██╔══██╗██║██╔═══██╗████╗  ██║
@@ -40,8 +40,22 @@ def addStudent(record):
     print("Add records of student")
     name = input("Enter name : ")
     std = input("Enter class : ")
+    section = input("Enter Section: ")
+    dob = input("Enter Date of Birth (DD-MM-YYYY): ")
+    gender = input("Enter Gender: ")
+    parent_name = input("Enter Parent Name: ")
+    address = input("Enter Address: ")
     add_num = generateAdmission_num()
-    record[add_num] = {"Admission Number": add_num, "Name": name, "Class": std}
+    record[add_num] = {
+        "Admission Number": add_num,
+        "Name": name,
+        "Class": std,
+        "Section": section,
+        "DOB": dob,
+        "Gender": gender,
+        "Parent Name": parent_name,
+        "Address": address
+    }
     print(
         f"Student: {name}, has been added to the records, with admission no:{add_num}\n"
     )
@@ -74,8 +88,18 @@ def modifyStudent(record):
         if element.lower() == student["Name"].lower():
             name = input("Enter new name : ")
             std = input("Enter new class : ")
+            section = input("Enter new Section: ")
+            dob = input("Enter new Date of Birth (DD-MM-YYYY): ")
+            gender = input("Enter new Gender: ")
+            parent_name = input("Enter new Parent Name: ")
+            address = input("Enter new Address: ")
             student["Name"] = name
             student["Class"] = std
+            student["DOB"] = dob
+            student["Gender"] = gender
+            student["Parent Name"] = parent_name
+            student["Address"] = address
+            student["Section"] = section
             print("The Record has been modified.\n")
             break
     else:
@@ -90,34 +114,47 @@ def sortStudent(record):
 
 
 def showStudent(record):
-    max_name_length = max(len(record[i]['Name']) for i in record)
-    max_class_length = max(len(record[i]['Class']) for i in record)
+    if not record:
+        print("No student records to display.\n")
+        return
 
-    print("Student Records:")
+    # Calculate column widths
+    headers = ["Admission Number", "Name", "Class", "Section", "DOB", "Gender", "Parent Name", "Address"]
+    rows = [
+        [
+            str(student.get('Admission Number', '')),
+            student.get('Name', ''),
+            student.get('Class', ''),
+            student.get('Section', ''),
+            student.get('DOB', ''),
+            student.get('Gender', ''),
+            student.get('Parent Name', ''),
+            student.get('Address', '')
+        ] for student in record.values()
+    ]
+    col_widths = []
+    for i in range(len(headers)):
+        max_len = len(headers[i])
+        for row in rows:
+            max_len = max(max_len, len(str(row[i])))
+        col_widths.append(max_len)
 
-    space = (21 + (max_name_length + 4 if max_name_length > 4 else 8) +
-             (max_class_length + 4 if max_class_length > 5 else 9))
-    spacen = max_name_length + 4 if max_name_length > 4 else 8
-    spacec = max_class_length + 4 if max_class_length > 5 else 9
+    def border(left, fill, sep, right):
+        return left + sep.join([fill * (w + 2) for w in col_widths]) + right
 
-    print("╒" + "═" * space + "╕")
-    print(f"│{'Admission Number':^19}│{'Name':^{spacen}}│{'Class':^{spacec}}│")
-    print("╞" + "═" * space + "╡")
+    top    = border("╔", "═", "╤", "╗")
+    header = "║" + "│".join(f" {headers[i]:^{col_widths[i]}} " for i in range(len(headers))) + "║"
+    mid    = border("╠", "═", "╪", "╣")
+    bottom = border("╚", "═", "╧", "╝")
 
-    for i in record.keys():
-        admission_number = record[i]['Admission Number']
-        name = record[i]['Name']
-        student_class = record[i]['Class']
-
-        print(
-            f"│{admission_number:^19}│{name:^{spacen}}│{student_class:^{spacec}}│"
-        )
-
-        if i == list(record.keys())[len(list(record.keys())) - 1]:
-            print("╘" + "═" * space + "╛")
-        else:
-            print("├" + "─" * space + "┤")
-    print("\n")
+    print("\nStudent Records:")
+    print(top)
+    print(header)
+    print(mid)
+    for idx, row in enumerate(rows):
+        print("║" + "│".join(f" {row[i]:^{col_widths[i]}} " for i in range(len(headers))) + "║")
+        print(border("╟", "═", "╪", "╢") if idx < len(rows) - 1 else bottom)
+    print()
 
 
 def load_records(file_name="record.txt"):
@@ -130,8 +167,13 @@ def load_records(file_name="record.txt"):
                     admission_number = int(row["Admission Number"])
                     record[admission_number] = {
                         "Admission Number": admission_number,
-                        "Name": row["Name"],
-                        "Class": row["Class"]
+                        "Name": row.get("Name", ""),
+                        "Class": row.get("Class", ""),
+                        "Section": row.get("Section", ""),
+                        "DOB": row.get("DOB", ""),
+                        "Gender": row.get("Gender", ""),
+                        "Parent Name": row.get("Parent Name", ""),
+                        "Address": row.get("Address", "")
                     }
                 except (ValueError, KeyError) as e:
                     print(f"Error processing row {row}: {e}")
@@ -147,7 +189,7 @@ def load_records(file_name="record.txt"):
 def save_records(record, file_name="record.txt"):
     try:
         with open(file_name, "w", newline="") as f:
-            fieldnames = ["Admission Number", "Name", "Class"]
+            fieldnames = ["Admission Number", "Name", "Class", "Section", "DOB", "Gender", "Parent Name", "Address"]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             for student in record.values():
@@ -185,20 +227,21 @@ while True:
         choice = input("Enter your choice: ")
         print("-" * 60)
         print("\n")
+        auto_save(record)
         if choice == '1':
             addStudent(record)
-            auto_save(record)
+            # auto_save(record)
         elif choice == '2':
             removeStudent(record)
-            auto_save(record)
+            # auto_save(record)
         elif choice == '3':
             modifyStudent(record)
-            auto_save(record)
+            # auto_save(record)
         elif choice == '4':
             searchStudent(record)
         elif choice == '5':
             sortStudent(record)
-            auto_save(record)
+            # auto_save(record)
         elif choice == '6':
             showStudent(record)
         elif choice == '7':
