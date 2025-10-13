@@ -1,7 +1,7 @@
 Admission Number,Name,Class,Section,DOB,Gender,Parent Name,Address
 948395,Shivam Kumar,12,A,11-08-2008,Male,Rajesh Kumar,123 Main St
 475016,Ananya Sharma,10,B,10-07-2009,Female,Sunita Sharma,456 Oak Ave
-123456,Arjun Reddy,11,C,05-03-2007,Male,Venkatesh Reddy,789 Pine Rd
+123456,Arjun Kumar,11,C,05-03-2007,Male,Venkatesh Kumar,789 Pine Rd
 234567,Sneha Iyer,12,A,22-12-2008,Female,Lakshmi Iyer,321 Maple St
 345678,Rahul Verma,10,B,15-09-2009,Male,Suresh Verma,654 Elm St
 456789,Priya Nair,11,C,30-01-2007,Female,Meera Nair,987 Cedar Ave
@@ -10,3 +10,21 @@ Admission Number,Name,Class,Section,DOB,Gender,Parent Name,Address
 789012,Karthik Menon,11,C,12-11-2007,Male,Ramesh Menon,852 Birch St
 890123,Aarohi Patel,12,A,03-02-2008,Female,Nisha Patel,951 Aspen Ave
 901234,Manav Joshi,10,B,27-08-2009,Male,Harish Joshi,357 Poplar St
+
+
+
+123456,Arjun Kumar,11,C,05-03-2007,Male,Mohan Kumar,789 Pine Rd
+234567,Sneha Iyer,12,A,22-12-2008,Female,Lakshmi Iyer,321 Maple St
+456789,Priya Nair,11,C,30-01-2007,Female,Meera Nair,987 Cedar Ave
+678901,Ishita Das,10,B,25-04-2009,Female,Anjali Das,753 Willow Rd
+789012,Karthik Menon,11,C,12-11-2007,Male,Ramesh Menon,852 Birch St
+890123,Aarohi Patel,12,A,03-02-2008,Female,Nisha Patel,951 Aspen Ave
+
+
+Admission Number,Name,Class,Section,DOB,Gender,Parent Name,Address
+948395,Shivam Kumar,12,A,11-08-2008,Male,Rajesh Kumar,123 Main St
+475016,Ananya Sharma,10,B,10-07-2009,Female,Sunita Sharma,456 Oak Ave
+345678,Rahul Verma,10,B,15-09-2009,Male,Suresh Verma,654 Elm St
+567890,Aditya Singh,12,A,18-06-2008,Male,Vivek Singh,159 Spruce St
+901234,Manav Joshi,10,B,27-08-2009,Male,Harish Joshi,357 Poplar St
+
